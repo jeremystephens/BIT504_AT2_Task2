@@ -17,7 +17,7 @@ public class GameMain extends JPanel implements MouseListener{
 	//drawing canvas
 	public static final int CANVAS_WIDTH = CELL_SIZE * COLS;
 	public static final int CANVAS_HEIGHT = CELL_SIZE * ROWS;
-	//Noughts and Crosses are displayed inside a cell, with padding from border
+	//Naughts and Crosses are displayed inside a cell, with padding from border
 	public static final int CELL_PADDING = CELL_SIZE / 6;    
 	public static final int SYMBOL_SIZE = CELL_SIZE - CELL_PADDING * 2;    
 	public static final int SYMBOL_STROKE_WIDTH = 8;
@@ -25,9 +25,8 @@ public class GameMain extends JPanel implements MouseListener{
 	/*declare game object variables*/
 	// the game board 
 	private Board board;
-	 	 
-	//TODO: create the enumeration for the variable below (GameState currentState)
-	//HINT all of the states you require are shown in the code within GameMain
+	
+	// the current state
 	private GameState currentState; 
 	
 	// the current player
@@ -39,8 +38,12 @@ public class GameMain extends JPanel implements MouseListener{
 	/** Constructor to setup the UI and game components on the panel */
 	public GameMain() {   
 		
-		// TODO: This JPanel fires a MouseEvent on MouseClicked so add required event listener to 'this'.          
-	    
+		// Add a MouseListener to 'this' JPanel
+	    this.addMouseListener(new MouseAdapter() {
+	    	public void mouseClicked(MouseEvent e) {
+	    		GameMain.this.mouseClicked(e);
+	    	}
+	    });
 	    
 		// Setup the status bar (JLabel) to display status message       
 		statusBar = new JLabel("         ");       
@@ -56,11 +59,12 @@ public class GameMain extends JPanel implements MouseListener{
 		setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT + 30));
 		
 		
-		// TODO: Create a new instance of the game "Board"class. HINT check the variables above for the correct name
-
+		//Create a new instance of the game "Board"class. HINT check the variables above for the correct name
+		board = new Board();
 		
-		//TODO: call the method to initialise the game board
-
+		//call the method to initialise the game board
+		initGame();
+		
 	}
 	
 	public static void main(String[] args) {
@@ -96,14 +100,13 @@ public class GameMain extends JPanel implements MouseListener{
 		if (currentState == GameState.Playing) {          
 			statusBar.setForeground(Color.BLACK);          
 			if (currentPlayer == Player.Cross) {   
-			
+				statusBar.setText("X's Turn");
 				//TODO: use the status bar to display the message "X"'s Turn
 
 				
 			} else {    
-				
+				statusBar.setText("O's Turn");
 				//TODO: use the status bar to display the message "O"'s Turn
-
 				
 			}       
 			} else if (currentState == GameState.Draw) {          
@@ -145,10 +148,10 @@ public class GameMain extends JPanel implements MouseListener{
 
 				
 			} else 
-				if (board.isDraw ()) {
-					
+				if (board.isDraw()) {
+					currentState = GameState.Draw;
 				// TODO: set the currentstate to the draw gamestate
-
+					
 			}
 			//otherwise no change to current state of playing
 		}
