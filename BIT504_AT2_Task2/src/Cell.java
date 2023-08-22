@@ -46,7 +46,7 @@ public class Cell {
 	public void clear() {
 		
 		// TODO: Set the value of content to Empty (Remember this is an enum)
-
+		
 		
 	}
 		
