@@ -19,77 +19,77 @@ import javax.swing.*;
  */
 public class GameMain extends JPanel implements MouseListener {
 
-    // Game settings
-    public static final int ROWS = 3;  // Grid rows
-    public static final int COLS = 3;  // Grid columns
-    public static final String TITLE = "Tic Tac Toe";
+	// Game settings
+	public static final int ROWS = 3;  // Grid rows
+	public static final int COLS = 3;  // Grid columns
+	public static final String TITLE = "Tic Tac Toe";
 
-    // Drawing constants
-    public static final int CELL_SIZE = 100;  // Width and height of each grid cell
-    public static final int CANVAS_WIDTH = CELL_SIZE * COLS; // Canvas width
-    public static final int CANVAS_HEIGHT = CELL_SIZE * ROWS; // Canvas height
+	// Drawing constants
+	public static final int CELL_SIZE = 100;  // Width and height of each grid cell
+	public static final int CANVAS_WIDTH = CELL_SIZE * COLS; // Canvas width
+	public static final int CANVAS_HEIGHT = CELL_SIZE * ROWS; // Canvas height
     
-    //Noughts and Crosses are displayed inside a cell, with padding from border
-    public static final int CELL_PADDING = CELL_SIZE / 6; 	
-    public static final int SYMBOL_SIZE = CELL_SIZE - CELL_PADDING * 2; 
-    public static final int SYMBOL_STROKE_WIDTH = 8;
+	//Noughts and Crosses are displayed inside a cell, with padding from border
+	public static final int CELL_PADDING = CELL_SIZE / 6; 	
+	public static final int SYMBOL_SIZE = CELL_SIZE - CELL_PADDING * 2; 
+	public static final int SYMBOL_STROKE_WIDTH = 8;
 
-    // Game components
-    private Board board;  // Represents the game board
+	// Game components
+	private Board board;  // Represents the game board
     private GameState currentState;  // Current status of the game
     private Player currentPlayer;  // Current player (X or O)
     private JLabel statusBar;  // Label for game status (like whose turn it is)
 
-    /** Constructor to initialize the game and UI components.*/     
-    public GameMain() {   
-        // Register mouse click event
-        this.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                GameMain.this.mouseClicked(e);
-            }
-        });
-        
+	/** Constructor to initialize the game and UI components.*/     
+	public GameMain() {   
+		// Register mouse click event
+		this.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				GameMain.this.mouseClicked(e);
+			}
+		});
+
 		// Setup the status bar (JLabel) to display status message       
-        statusBar = new JLabel("         ");       
-        statusBar.setFont(new Font(Font.DIALOG_INPUT, Font.BOLD, 14));       
-        statusBar.setBorder(BorderFactory.createEmptyBorder(2, 5, 4, 5));       
-        statusBar.setOpaque(true);       
-        statusBar.setBackground(Color.LIGHT_GRAY);  
+		statusBar = new JLabel("         ");       
+		statusBar.setFont(new Font(Font.DIALOG_INPUT, Font.BOLD, 14));       
+		statusBar.setBorder(BorderFactory.createEmptyBorder(2, 5, 4, 5));       
+		statusBar.setOpaque(true);       
+		statusBar.setBackground(Color.LIGHT_GRAY);  
 
 		//Layout of the panel is in border layout
-        setLayout(new BorderLayout());       
-        add(statusBar, BorderLayout.SOUTH);
-        setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT + 30));
-        
-        //Create new instance of the game "Board" class
-        board = new Board();
-        
-        //Call the method to initialise the game board
-        initGame(); 
-    }
-	
+		setLayout(new BorderLayout());       
+		add(statusBar, BorderLayout.SOUTH);
+		setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT + 30));
+
+		//Create new instance of the game "Board" class
+		board = new Board();
+
+		//Call the method to initialise the game board
+		initGame(); 
+	}
+
 	public static void main(String[] args) {
-		    // Run GUI code in Event Dispatch thread for thread safety.
+		// Run GUI code in Event Dispatch thread for thread safety.
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-	         public void run() {
+			public void run() {
 				//Create a main window to contain the panel
 				JFrame frame = new JFrame(TITLE);
 				
 				//Create the main panel of the game and add it to the frame						
 				GameMain gamePanel = new GameMain();
-	            frame.add(gamePanel);
+				frame.add(gamePanel);
 				
 				//Set default close operation to exit the main panel frame
-	            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	            
+				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				
 				frame.pack();             
 				frame.setLocationRelativeTo(null);
 				frame.setVisible(true);
 				frame.setResizable(false);
-	         }
-		 });
+			}
+		});
 	}
-	
+
 	/** Custom painting codes on this JPanel */
 	public void paintComponent(Graphics g) {
 		//Fill background and set colour to white
@@ -126,8 +126,8 @@ public class GameMain extends JPanel implements MouseListener {
 					board.cells[row][col].content = Player.Empty;           
 				}
 			}
-			 currentState = GameState.Playing;
-			 currentPlayer = Player.Cross;
+			currentState = GameState.Playing;
+			currentPlayer = Player.Cross;
 		}
 		
 		/**After each turn check to see if the current player hasWon by putting their symbol in that position, 
