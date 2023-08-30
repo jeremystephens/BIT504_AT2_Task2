@@ -8,12 +8,14 @@
  * Assignment: 2 
  */
 
+// Import Statements
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
 /**
- * Main game class for Tic Tac Toe, implementing mouse interactions.
+ * Main game class for Tic Tac Toe.
+ * Manages game state, UI, and mouse interactions.
  */
 public class GameMain extends JPanel implements MouseListener {
 
